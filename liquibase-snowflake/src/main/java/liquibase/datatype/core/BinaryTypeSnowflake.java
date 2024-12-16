@@ -6,7 +6,7 @@ import liquibase.database.core.SnowflakeDatabase;
 import liquibase.datatype.DataTypeInfo;
 import liquibase.datatype.DatabaseDataType;
 import liquibase.datatype.LiquibaseDataType;
-import liquibase.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
 
@@ -14,7 +14,7 @@ import java.util.Locale;
 public class BinaryTypeSnowflake extends LiquibaseDataType {
     @Override
     public DatabaseDataType toDatabaseDataType(Database database) {
-        String originalDefinition = StringUtil.trimToEmpty(getRawDefinition());
+        String originalDefinition = StringUtils.trimToEmpty(getRawDefinition());
         if (database instanceof SnowflakeDatabase) {
             if (originalDefinition.toLowerCase(Locale.US).startsWith("varbinary") || originalDefinition.startsWith("java.sql.Types.VARBINARY")) {
                 return new DatabaseDataType("VARBINARY", getParameters());
